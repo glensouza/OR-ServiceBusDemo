@@ -1,10 +1,10 @@
 @description('Location for all resources.')
 param location string = resourceGroup().location
 
-param serviceBusNamespaceName string = 'gsorservicebusdemo${uniqueString(resourceGroup().id)}'
+param serviceBusNamespaceName string = 'gsorservicebusdemo'
 
 @minLength(3)
-param storageAccountName string = 'gsorstorage${uniqueString(resourceGroup().id)}'
+param storageAccountName string = 'gsorservicebusdemo'
 
 module serviceBus './servicebus.bicep' = {
   name: 'ServiceBus'
