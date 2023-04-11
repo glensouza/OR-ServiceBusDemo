@@ -1,19 +1,17 @@
 # OR Service Bus Demo
 
-- bicep
-  - <https://learn.microsoft.com/en-us/answers/questions/1128202/using-bicep-to-delete-the-resources>
-  - <https://ochzhen.com/blog/check-if-resource-exists-azure-bicep>
-  - <https://github.com/Azure/bicep/discussions/2595>
-  - <https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/conditional-resource-deployment>
-  - <https://arinco.com.au/blog/checking-for-resource-existence-in-bicep/>
-  - <https://github.com/olafloogman/BicepModules/blob/main/resource-exists-id.bicep>
-  - <https://stackoverflow.com/questions/68007894/how-to-delete-bicep-template-and-the-resources-it-has-deployed>
+[![Azure ARM](https://github.com/glensouza/OR-ServiceBusDemo/actions/workflows/bicep.yml/badge.svg)](https://github.com/glensouza/OR-ServiceBusDemo/actions/workflows/bicep.yml)
+
+[GitHub Actions](https://docs.github.com/en/actions) is a suite of features in GitHub to automate your software development workflows.
+
+We will use the [GitHub Actions for Azure Resource Manager deployment](https://github.com/marketplace/actions/deploy-azure-resource-manager-arm-template) to automate deploying a Bicep file to Azure.
+
+It provides a short introduction to GitHub actions and Bicep files. If you want more detailed steps on setting up the GitHub actions and project, see [Deploy Azure resources by using Bicep and GitHub Actions](https://learn.microsoft.com/en-us/training/paths/bicep-github-actions).
 
 ## Deploy Bicep files by using GitHub Actions
 
 In this article will cover the following topics:
 
-- [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
 - [Create resource group](#create-resource-group)
 - [Generate deployment credentials](#generate-deployment-credentials)
@@ -22,14 +20,6 @@ In this article will cover the following topics:
 - [Create workflow](#create-workflow)
 - [Check workflow status](#check-workflow-status)
 - [Clean up resources](#clean-up-resources)
-
-## Introduction
-
-[GitHub Actions](https://docs.github.com/en/actions) is a suite of features in GitHub to automate your software development workflows.
-
-We will use the [GitHub Actions for Azure Resource Manager deployment](https://github.com/marketplace/actions/deploy-azure-resource-manager-arm-template) to automate deploying a Bicep file to Azure.
-
-It provides a short introduction to GitHub actions and Bicep files. If you want more detailed steps on setting up the GitHub actions and project, see [Deploy Azure resources by using Bicep and GitHub Actions](https://learn.microsoft.com/en-us/training/paths/bicep-github-actions).
 
 ## Prerequisites
 
@@ -198,3 +188,11 @@ az group delete --name exampleRG
 
 ---
 Reference: <https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-github-actions?tabs=userlevel%2CCLI>
+
+- <https://learn.microsoft.com/en-us/answers/questions/1128202/using-bicep-to-delete-the-resources>
+- <https://ochzhen.com/blog/check-if-resource-exists-azure-bicep>
+- <https://github.com/Azure/bicep/discussions/2595>
+- <https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/conditional-resource-deployment>
+- <https://arinco.com.au/blog/checking-for-resource-existence-in-bicep/>
+- <https://github.com/olafloogman/BicepModules/blob/main/resource-exists-id.bicep>
+- <https://stackoverflow.com/questions/68007894/how-to-delete-bicep-template-and-the-resources-it-has-deployed>
