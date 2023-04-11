@@ -29,3 +29,4 @@ jobs:
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./Bicep/main.bicep
         failOnStdErr: false
+        deploymentMode: Complete
