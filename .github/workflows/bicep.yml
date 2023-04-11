@@ -40,7 +40,6 @@ jobs:
     #     resourceGroupName: ${{ secrets.AZURE_RG }}
     #     template: ./Bicep/main.bicep
     #     deploymentName: bicep-ci
-    #     # deploymentMode: Complete
 
     - name: deploy
       uses: azure/arm-deploy@v1
@@ -50,3 +49,4 @@ jobs:
         template: ./Bicep/main.bicep
         failOnStdErr: false
         deploymentName: bicep-ci
+        deploymentMode: Complete
