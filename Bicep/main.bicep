@@ -4,7 +4,7 @@ param location string = resourceGroup().location
 param serviceBusNamespaceName string = 'gsorservicebusdemo${uniqueString(resourceGroup().id)}'
 
 @minLength(3)
-param storageAccountName string = 'gsorservicebusdemo${uniqueString(resourceGroup().id)}'
+param storageAccountName string = 'gsorstorage${uniqueString(resourceGroup().id)}'
 
 module serviceBus './servicebus.bicep' = {
   name: 'ServiceBus'
