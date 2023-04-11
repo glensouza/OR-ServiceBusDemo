@@ -1,7 +1,15 @@
-on: [push]
-name: Azure ARM
+name: Provision Infrastructure CI
+
+on:
+  push:
+    branches:
+      - "main" 
+    paths:
+      - "Bicep/**"
+      - ".github/workflows/bicep.yml"
+
 jobs:
-  build-and-deploy:
+  provision-service-bus:
     runs-on: ubuntu-latest
     steps:
 
