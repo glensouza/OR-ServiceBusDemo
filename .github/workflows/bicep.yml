@@ -22,11 +22,22 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Deploy Bicep file
+    # - name: deploy
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+    #     scope: resourcegroup
+    #     resourceGroupName: ${{ secrets.AZURE_RG }}
+    #     template: ./Bicep/main.bicep
+    #     failOnStdErr: false
+    #     deploymentMode: 'Complete'
+
     - name: deploy
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        scope: resourcegroup
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./Bicep/main.bicep
-        failOnStdErr: false
-        deploymentMode: 'Complete'
+        deploymentName: bicep-ci
+        # deploymentMode: Complete
