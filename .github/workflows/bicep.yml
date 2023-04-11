@@ -49,4 +49,4 @@ jobs:
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./Bicep/main.bicep
         failOnStdErr: false
-        # deploymentName: bicep-ci
+        deploymentName: bicep-ci
