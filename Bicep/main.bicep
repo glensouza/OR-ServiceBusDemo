@@ -38,6 +38,7 @@ module web './web.bicep' = {
   name: 'Web'
   params: {
     location: location
+    serviceBusName: serviceBusNamespaceName
     storageAccountName: storageAccountName
     appServicePlanName: appServicePlanName
     functionAppName: functionAppName
