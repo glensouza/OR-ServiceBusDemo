@@ -1,4 +1,4 @@
-name: Provision Infrastructure CI
+name: Provision Infrastructure
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
     paths:
       - "Bicep/**"
       - ".github/workflows/bicep.yml"
+  workflow_dispatch:
 
 jobs:
   provision-service-bus:
