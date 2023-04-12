@@ -28,6 +28,17 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         scope: resourcegroup
+        template: ./Bicep/empty.bicep
+        failOnStdErr: false
+        deploymentName: bicep-ci
+        deploymentMode: Complete
+
+    - name: deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.AZURE_RG }}
+        scope: resourcegroup
         template: ./Bicep/main.bicep
         parameters: serviceBusNamespaceName=${{ vars.RESOURCE_NAME }} storageAccountName=${{ vars.RESOURCE_NAME }} appServicePlanName=${{ vars.RESOURCE_NAME }} functionAppName=${{ vars.RESOURCE_NAME }}-func webAppName=${{ vars.RESOURCE_NAME }}-web
         failOnStdErr: false
