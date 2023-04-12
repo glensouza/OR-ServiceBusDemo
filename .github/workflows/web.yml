@@ -9,10 +9,6 @@ on:
       - ".github/workflows/web.yml"
   workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: read
-
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './ServiceBus/GSOR.Functions'
   AZURE_WEBAPP_PACKAGE_PATH: './ServiceBus/GSOR.Web'
@@ -51,7 +47,7 @@ jobs:
       - name: Deploy Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'gsorservicebusdemo'
+          app-name: '$RESOURCE_NAME-web'
           slot-name: 'Production'
           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/weboutput'
 
@@ -65,6 +61,6 @@ jobs:
       - name: 'Deploy Function App'
         uses: Azure/functions-action@v1
         with:
-          app-name: 'gsorservicebusfunctions'
+          app-name: '$RESOURCE_NAME-func'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/functionoutput'

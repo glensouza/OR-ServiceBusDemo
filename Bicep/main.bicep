@@ -8,6 +8,16 @@ param serviceBusNamespaceName string = 'gsorservicebusdemo'
 @description('Name of the Storage Account')
 param storageAccountName string = 'gsorservicebusdemo'
 
+@description('The name of App Service Plan')
+param appServicePlanName string = 'gsorservicebusdemo'
+
+@description('The name of function app')
+param functionAppName string = 'gsorservicebusfunctions'
+
+@minLength(2)
+@description('The name of web app')
+param webAppName string = 'gsorservicebusdemo'
+
 module serviceBus './servicebus.bicep' = {
   name: 'ServiceBus'
   params: {
@@ -29,5 +39,8 @@ module web './web.bicep' = {
   params: {
     location: location
     storageAccountName: storageAccountName
+    appServicePlanName: appServicePlanName
+    functionAppName: functionAppName
+    webAppName: webAppName
   }
 }

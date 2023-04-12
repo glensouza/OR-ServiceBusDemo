@@ -1,5 +1,5 @@
 @minLength(3)
-param storageAccountName string = 'gsor${uniqueString(resourceGroup().id)}'
+param storageAccountName string
 
 @allowed([
   'Standard_LRS'
