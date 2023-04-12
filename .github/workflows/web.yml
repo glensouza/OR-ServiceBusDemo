@@ -47,7 +47,7 @@ jobs:
         run: |
           pushd '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
           dotnet build --configuration Release
-          dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/weboutput
+          dotnet publish -c Release -o ./weboutput
           popd
 
       - name: Deploy Web App
