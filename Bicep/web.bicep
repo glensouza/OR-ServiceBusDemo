@@ -1,6 +1,9 @@
 @description('Location for resource.')
 param location string = resourceGroup().location
 
+@description('Name of the Service Bus namespace')
+param serviceBusName string
+
 @description('The name of the storage account')
 param storageAccountName string
 
@@ -25,6 +28,10 @@ param webLinuxFxVersion string = 'DOTNETCORE|7.0'
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' existing = {
   name: storageAccountName
+}
+
+resource serviceBus 'Microsoft.ServiceBus/namespaces@2022-10-01-preview' existing = {
+  name: serviceBusName
 }
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
@@ -52,6 +59,10 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
         {
           name: 'AzureWebJobsStorage'
           value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+        }
+        {
+          name: 'ServiceBusConnection'
+          value: 'Endpoint=sb://${serviceBusName}.servicebus.windows.net/;SharedAccessKeyName=${serviceBus.listKeys().keys[0].name};SharedAccessKey=${serviceBus.listKeys().keys[0].value}}'
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
