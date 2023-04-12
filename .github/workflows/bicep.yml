@@ -29,7 +29,7 @@ jobs:
         resourceGroupName: ${{ secrets.AZURE_RG }}
         scope: resourcegroup
         template: ./Bicep/main.bicep
-        parameters: serviceBusNamespaceName=$RESOURCE_NAME storageAccountName=$RESOURCE_NAME appServicePlanName=$RESOURCE_NAME functionAppName=$RESOURCE_NAME-func webAppName=$RESOURCE_NAME-web
+        parameters: serviceBusNamespaceName=${{ vars.RESOURCE_NAME }} storageAccountName=${{ vars.RESOURCE_NAME }} appServicePlanName=${{ vars.RESOURCE_NAME }} functionAppName=${{ vars.RESOURCE_NAME }}-func webAppName=${{ vars.RESOURCE_NAME }}-web
         failOnStdErr: false
         deploymentName: bicep-ci
         deploymentMode: Complete
