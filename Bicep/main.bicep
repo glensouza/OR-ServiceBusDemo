@@ -131,7 +131,8 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
         }
         {
           name: 'ServiceBusConnection'
-          value: 'Endpoint=sb://${serviceBusNamespace}.servicebus.windows.net/;SharedAccessKeyName=${serviceBusNamespace.listKeys().keys[0].name};SharedAccessKey=${serviceBusNamespace.listKeys().keys[0].value}}'
+          value: 'Endpoint=sb://${serviceBusNamespace}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${serviceBusNamespace.listKeys().primarykey}}'
+          // value: '${serviceBusNamespace.listKeys().primaryConnectionString}'
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'

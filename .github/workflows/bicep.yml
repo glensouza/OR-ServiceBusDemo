@@ -22,7 +22,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: deploy
+    - name: Empty Out Environment
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -30,10 +30,10 @@ jobs:
         scope: resourcegroup
         template: ./Bicep/empty.bicep
         failOnStdErr: false
-        deploymentName: bicep-ci
+        deploymentName: empty-bicep-ci
         deploymentMode: Complete
 
-    - name: deploy
+    - name: Provision Resources
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
