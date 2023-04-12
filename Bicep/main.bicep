@@ -115,6 +115,8 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   }
 }
 
+var serviceBusConnectionString = listKeys(serviceBusNamespace.id, serviceBusNamespace.apiVersion).primaryConnectionString
+
 resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
   name: functionAppName
   location: location
@@ -131,7 +133,8 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
         }
         {
           name: 'ServiceBusConnection'
-          value: 'Endpoint=sb://${serviceBusNamespace}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${serviceBusNamespace.listKeys().primarykey}}'
+          value: '${serviceBusConnectionString}'
+          // value: 'Endpoint=sb://${serviceBusNamespace}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${serviceBusNamespace.listKeys().primarykey}}'
           // value: '${serviceBusNamespace.listKeys().primaryConnectionString}'
         }
         {
