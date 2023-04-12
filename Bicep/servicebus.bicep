@@ -1,7 +1,7 @@
 @description('Name of the Service Bus namespace')
 param serviceBusName string = 'gsor{uniqueString(resourceGroup().id)}'
 
-@description('Location for all resources.')
+@description('Location for resource.')
 param location string = resourceGroup().location
 
 @description('Name of SKUs.')

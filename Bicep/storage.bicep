@@ -13,6 +13,7 @@ param storageAccountName string = 'gsor${uniqueString(resourceGroup().id)}'
 ])
 param storageSKU string = 'Standard_LRS'
 
+@description('Location for resource.')
 param location string = resourceGroup().location
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
@@ -28,4 +29,3 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
 }
 
 output storageEndpoint object = storageAccount
-// output storageEndpoint object = storageAccount.properties.primaryEndpoints

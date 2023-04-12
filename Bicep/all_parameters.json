@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_gsorservicebus_name": {
+            "value": null
+        },
+        "sites_gsorservicebusdemo_name": {
+            "value": null
+        },
+        "serverfarms_gsorservicebus_name": {
+            "value": null
+        },
+        "namespaces_gsorservicebusdemo_name": {
+            "value": null
+        },
+        "storageAccounts_gsorservicebusdemo_name": {
+            "value": null
+        }
+    }
+}
