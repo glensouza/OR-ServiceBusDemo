@@ -188,11 +188,3 @@ az group delete --name exampleRG
 
 ---
 Reference: <https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-github-actions?tabs=userlevel%2CCLI>
-
-- <https://learn.microsoft.com/en-us/answers/questions/1128202/using-bicep-to-delete-the-resources>
-- <https://ochzhen.com/blog/check-if-resource-exists-azure-bicep>
-- <https://github.com/Azure/bicep/discussions/2595>
-- <https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/conditional-resource-deployment>
-- <https://arinco.com.au/blog/checking-for-resource-existence-in-bicep/>
-- <https://github.com/olafloogman/BicepModules/blob/main/resource-exists-id.bicep>
-- <https://stackoverflow.com/questions/68007894/how-to-delete-bicep-template-and-the-resources-it-has-deployed>
