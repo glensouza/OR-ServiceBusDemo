@@ -103,7 +103,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
-resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
+resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: appServicePlanName
   location: location
   sku: {
