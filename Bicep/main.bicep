@@ -58,6 +58,22 @@ resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2022-10-01-preview
   }
 }
 
+// Grant Listen and Send on our event hub
+
+resource eventHubNamespaceName_eventHubName_ListenSend 'Microsoft.ServiceBus/namespaces/AuthorizationRules@2022-10-01-preview' = {
+  parent: serviceBusNamespace
+  name: 'ListenSend'
+  properties: {
+    rights: [
+      'Listen'
+      'Send'
+    ]
+  }
+  dependsOn: [
+    serviceBusNamespace
+  ]
+}
+
 resource deadLetterFirehoseQueue 'Microsoft.ServiceBus/namespaces/queues@2018-01-01-preview' = {
   name: deadLetterFirehoseQueueName
   parent: serviceBusNamespace
@@ -115,13 +131,17 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   }
 }
 
-// var storageAccountConnectionString = storageAccount.listKeys().primaryConnectionString
 var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
-// var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccount.id, storageAccount.apiVersion).keys[0].value}'
 
 // var serviceBusConnectionString = listKeys(serviceBusNamespace.id, serviceBusNamespace.apiVersion).primaryConnectionString
 // var serviceBusConnectionString = serviceBusNamespace.listKeys().primaryConnectionString
 // var serviceBusConnectionString = 'Endpoint=sb://${serviceBusNamespace}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${serviceBusNamespace.listKeys().primarykey}}'
+
+// var listKeysEndpoint = '${service_bus.id}/AuthorizationRules/RootManageSharedAccessKey'
+// var SharedAccessKey=${listKeys(listKeysEndpoint, service_bus.apiVersion).primaryKey}
+
+var endpoint = '${serviceBusNamespace.id}/AuthorizationRules/RootManageSharedAccessKey' 
+var serviceBusConnectionString = 'Endpoint=sb://${serviceBusNamespaceName}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${listKeys(endpoint, serviceBusNamespace.apiVersion).primaryKey}'
 
 resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
   name: functionAppName
@@ -137,10 +157,10 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
           name: 'AzureWebJobsStorage'
           value: storageAccountConnectionString
         }
-        // {
-        //   name: 'ServiceBusConnection'
-        //   value: serviceBusConnectionString
-        // }
+        {
+          name: 'ServiceBusConnection'
+          value: serviceBusConnectionString
+        }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
           value: '~4'
