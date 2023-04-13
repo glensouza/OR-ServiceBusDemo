@@ -115,7 +115,13 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   }
 }
 
-var serviceBusConnectionString = listKeys(serviceBusNamespace.id, serviceBusNamespace.apiVersion).primaryConnectionString
+// var storageAccountConnectionString = storageAccount.listKeys().primaryConnectionString
+var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+// var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${listKeys(storageAccount.id, storageAccount.apiVersion).keys[0].value}'
+
+// var serviceBusConnectionString = listKeys(serviceBusNamespace.id, serviceBusNamespace.apiVersion).primaryConnectionString
+// var serviceBusConnectionString = serviceBusNamespace.listKeys().primaryConnectionString
+// var serviceBusConnectionString = 'Endpoint=sb://${serviceBusNamespace}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${serviceBusNamespace.listKeys().primarykey}}'
 
 resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
   name: functionAppName
@@ -129,14 +135,12 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
       appSettings: [
         {
           name: 'AzureWebJobsStorage'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+          value: storageAccountConnectionString
         }
-        {
-          name: 'ServiceBusConnection'
-          value: '${serviceBusConnectionString}'
-          // value: 'Endpoint=sb://${serviceBusNamespace}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${serviceBusNamespace.listKeys().primarykey}}'
-          // value: '${serviceBusNamespace.listKeys().primaryConnectionString}'
-        }
+        // {
+        //   name: 'ServiceBusConnection'
+        //   value: serviceBusConnectionString
+        // }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
           value: '~4'
