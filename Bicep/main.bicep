@@ -116,11 +116,9 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
 }
 
 var storageAccountConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
-
-// var serviceBusConnectionString = 'Endpoint=sb://${serviceBusNamespaceName}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${listKeys('${serviceBusNamespace.id}/AuthorizationRules/RootManageSharedAccessKey', serviceBusNamespace.apiVersion).primaryKey}'
 var serviceBusConnectionString = listKeys('${serviceBusNamespace.id}/AuthorizationRules/RootManageSharedAccessKey', serviceBusNamespace.apiVersion).primaryConnectionString
 
-resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
+resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   name: functionAppName
   location: location
   kind: 'functionapp,linux'
@@ -151,7 +149,7 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
   }
 }
 
-resource webApp 'Microsoft.Web/sites@2022-09-01' = {
+resource webApp 'Microsoft.Web/sites@2022-03-01' = {
   name: webAppName
   location: location
   kind: 'app,linux'
@@ -160,6 +158,16 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
     siteConfig: {
       linuxFxVersion: webLinuxFxVersion
       ftpsState: 'FtpsOnly'
+      appSettings: [
+        {
+          name: 'AzureWebJobsStorage'
+          value: storageAccountConnectionString
+        }
+        {
+          name: 'ServiceBusConnection'
+          value: serviceBusConnectionString
+        }
+      ]
     }
     httpsOnly: true
   }
