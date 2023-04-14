@@ -35,3 +35,35 @@ jobs:
 
     - name: Validate Hostname
       run: echo ${{ steps.deploy.outputs.defaultHostname }}
+
+    - name: Secrets to Key Vault
+      uses: azure/powershell@v1
+      env:
+        POWERSHELL_TELEMETRY_OPTOUT: 1
+      with:
+        inlineScript: |
+          $sqlConnectionString = (az keyvault secret show --vault-name <keyVaultName> --name <secret-name> --query [value] --output tsv)
+          echo ::set-output name=sqlConnectionString::$( $sqlConnectionString)
+        azPSVersion : '3.1.0'
+
+    - name: Validate Hostname
+      run: echo ${{ steps.deploy.outputs.defaultHostname }}
+
+    - name: Secrets to Key Vault
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          $sqlConnectionString = (az keyvault secret show --vault-name <keyVaultName> --name <secret-name> --query [value] --output tsv)
+          echo ::set-output name=sqlConnectionString::$( $sqlConnectionString)
+        azPSVersion : 'latest'
+
+
+    - run: ./myscript.ps1
+      shell: pwsh 
+
+    - name: Run a one-line script
+      env:
+        APIKey: ${{ secrets.APIKey }}
+        ZoneId: ${{ secrets.ZoneId }}
+      run: ./Bicep/dns.ps1
+      shell: powershell
