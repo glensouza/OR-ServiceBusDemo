@@ -2,7 +2,7 @@
 param location string = 'centralus'
 
 @description('Name of Static Web App')
-param staticWebAppName string = 'peopledemo99'
+param staticWebAppName string = 'peopledemo98'
 
 @allowed([ 'Free', 'Standard' ])
 param sku string = 'Free'
