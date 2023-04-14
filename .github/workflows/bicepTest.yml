@@ -1,0 +1,37 @@
+name: Provision Infrastructure Test
+
+on:
+  push:
+    branches:
+      - "main" 
+    paths:
+      - "Infrastructure/**"
+      - ".github/workflows/bicepTest.yml"
+  workflow_dispatch:
+
+jobs:
+  provision-service-bus:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout code
+    - uses: actions/checkout@main
+
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Provision Resources
+      uses: azure/arm-deploy@v1
+      id: deploy
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.AZURE_RG }}
+        scope: resourcegroup
+        template: ./Bicep/staticwebapp.v3.bicep
+        failOnStdErr: false
+        deploymentName: bicep-test-ci
+
+    - name: Validate Hostname
+      run: echo ${{ steps.deploy.outputs.defaultHostname }}
