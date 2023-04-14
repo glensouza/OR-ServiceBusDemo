@@ -17,9 +17,4 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
   properties: {}
 }
 
-resource resManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = {
-  name: 'peopledemo-script-cloudflaredns-managed-identity'
-  location: location
-}
-
 output defaultHostname string = staticWebApp.properties.defaultHostname

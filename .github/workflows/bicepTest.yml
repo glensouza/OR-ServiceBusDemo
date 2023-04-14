@@ -31,9 +31,9 @@ jobs:
         scope: resourcegroup
         template: ./Bicep/staticwebapp.v3.bicep
         failOnStdErr: false
-        deploymentName: bicep-test-ci
+        deploymentName: bicep-provision-test-ci
 
-    - name: Run script file
+    - name: Set Cloudflare DNS
       env:
         APIKey: ${{ secrets.APIKey }}
         ZoneId: ${{ secrets.ZoneId }}
@@ -49,4 +49,4 @@ jobs:
         scope: resourcegroup
         template: ./Bicep/staticwebapp.v4.bicep
         failOnStdErr: false
-        deploymentName: bicep-test-ci
+        deploymentName: bicep-dns-test-ci
