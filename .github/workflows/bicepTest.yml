@@ -33,31 +33,6 @@ jobs:
         failOnStdErr: false
         deploymentName: bicep-test-ci
 
-    # - name: Validate Hostname
-    #   run: echo ${{ steps.deploy.outputs.defaultHostname }}
-
-    # - name: Secrets to Key Vault
-    #   uses: azure/powershell@v1
-    #   env:
-    #     POWERSHELL_TELEMETRY_OPTOUT: 1
-    #   with:
-    #     inlineScript: |
-    #       $sqlConnectionString = (az keyvault secret show --vault-name <keyVaultName> --name <secret-name> --query [value] --output tsv)
-    #       echo ::set-output name=sqlConnectionString::$( $sqlConnectionString)
-    #     azPSVersion : '3.1.0'
-
-    # - name: Secrets to Key Vault
-    #   uses: azure/powershell@v1
-    #   with:
-    #     inlineScript: |
-    #       $sqlConnectionString = (az keyvault secret show --vault-name <keyVaultName> --name <secret-name> --query [value] --output tsv)
-    #       echo ::set-output name=sqlConnectionString::$( $sqlConnectionString)
-    #     azPSVersion : 'latest'
-
-
-    # - run: ./myscript.ps1
-    #   shell: pwsh 
-
     - name: Run script file
       env:
         APIKey: ${{ secrets.APIKey }}
@@ -65,3 +40,13 @@ jobs:
         HostName: ${{ steps.deploy.outputs.defaultHostname }}
       run: ./Bicep/dns.ps1
       shell: pwsh
+
+    - name: Set Custom Domain
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.AZURE_RG }}
+        scope: resourcegroup
+        template: ./Bicep/staticwebapp.v4.bicep
+        failOnStdErr: false
+        deploymentName: bicep-test-ci

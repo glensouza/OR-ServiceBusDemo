@@ -21,6 +21,7 @@ if ($null -ne $cnameRecords) {
       -Headers $headers `
       -Method PATCH `
       -Body $body
+      Start-Sleep -Seconds 300
   }
 }
 else {
