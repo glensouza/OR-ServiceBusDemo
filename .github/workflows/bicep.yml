@@ -26,7 +26,7 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
+        resourceGroupName: ${{ vars.AZURE_RG }}
         scope: resourcegroup
         template: ./Bicep/empty.bicep
         failOnStdErr: false
@@ -37,7 +37,7 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
+        resourceGroupName: ${{ vars.AZURE_RG }}
         scope: resourcegroup
         template: ./Bicep/main.bicep
         parameters: serviceBusNamespaceName=${{ vars.RESOURCE_NAME }}sb storageAccountName=${{ vars.RESOURCE_NAME }}sa appServicePlanName=${{ vars.RESOURCE_NAME }}asp functionAppName=${{ vars.RESOURCE_NAME }}func webAppName=${{ vars.RESOURCE_NAME }}web

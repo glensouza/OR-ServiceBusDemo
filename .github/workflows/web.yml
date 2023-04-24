@@ -58,7 +58,7 @@ jobs:
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/functionoutput'
 
-      - name: Deploy Web App
+      - name: 'Deploy Web App'
         uses: azure/webapps-deploy@v2
         with:
           app-name: '${{ vars.RESOURCE_NAME }}web'

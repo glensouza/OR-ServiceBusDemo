@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Azure.Messaging.ServiceBus;
+﻿using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Configuration;
 
 // Build a config object, using env vars and JSON providers.
@@ -10,7 +9,7 @@ IConfiguration config = new ConfigurationBuilder()
 
 // Get values from the config given their key and their target type.
 string? serviceBusConnectionString = config.GetValue<string>("ServiceBusConnectionString");
-const string queueName = "FromConsole";
+const string queueName = "fromconsole";
 
 // since ServiceBusClient implements IAsyncDisposable we create it with "await using"
 await using ServiceBusClient client = new(serviceBusConnectionString);
@@ -134,17 +133,4 @@ void WriteMenu(Option selectedOption)
 
 async Task Notify(string message)
 {
-
-}
-
-public class Option
-{
-    public string Name { get; }
-    public Action Selected { get; }
-
-    public Option(string name, Action selected)
-    {
-        Name = name;
-        Selected = selected;
-    }
 }

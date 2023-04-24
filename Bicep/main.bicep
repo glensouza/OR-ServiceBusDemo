@@ -9,11 +9,11 @@ param serviceBusSkuName string = 'Basic'
 
 @description('Name of Queues.')
 param serviceBusQueueNames array = [
-  'FromFunction'
-  'FromConsole'
+  'fromfunction'
+  'fromconsole'
 ]
 
-var deadLetterFirehoseQueueName = 'deadletterfirehose'
+var deadLetterQueueName = 'deadletter'
 
 @minLength(3)
 @description('Name of the Storage Account')
@@ -59,7 +59,7 @@ resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2022-10-01-preview
 }
 
 resource deadLetterFirehoseQueue 'Microsoft.ServiceBus/namespaces/queues@2018-01-01-preview' = {
-  name: deadLetterFirehoseQueueName
+  name: deadLetterQueueName
   parent: serviceBusNamespace
   properties: {
     requiresDuplicateDetection: false
@@ -75,7 +75,7 @@ resource queues 'Microsoft.ServiceBus/namespaces/queues@2018-01-01-preview' = [f
     deadLetterFirehoseQueue
   ]
   properties: {
-    forwardDeadLetteredMessagesTo: deadLetterFirehoseQueueName
+    forwardDeadLetteredMessagesTo: deadLetterQueueName
     lockDuration: 'PT1M'
     maxSizeInMegabytes: 1024
     requiresDuplicateDetection: false

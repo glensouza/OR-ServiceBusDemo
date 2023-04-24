@@ -67,10 +67,10 @@ Copy
 Create secrets for your Azure credentials, resource group, and subscriptions.
 
 1. In [GitHub](https://github.com), navigate to your repository.
-2. Select Security > Secrets and variables > Actions > New repository secret.
-3. Paste the entire JSON output from the Azure CLI command into the secret's value field. Name the secret `AZURE_CREDENTIALS`.
-4. Create another secret named `AZURE_RG`. Add the name of your resource group to the secret's value field (`exampleRG`).
-5. Create another secret named `AZURE_SUBSCRIPTION`. Add your subscription ID to the secret's value field (example: `90fd3f9d-4c61-432d-99ba-1273f236afa2`).
+1. Select Security > Secrets and variables > Actions > New repository secret.
+1. Paste the entire JSON output from the Azure CLI command into the secret's value field. Name the secret `AZURE_CREDENTIALS`.
+1. Create another secret named `AZURE_SUBSCRIPTION`. Add your subscription ID to the secret's value field (example: `90fd3f9d-4c61-432d-99ba-1273f236afa2`).
+1. Create variable named `AZURE_RG`. Add the name of your resource group to the secret's value field (`exampleRG`).
 
 ## Add a Bicep file
 

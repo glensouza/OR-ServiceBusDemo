@@ -12,6 +12,7 @@ on:
 jobs:
   provision-service-bus:
     runs-on: ubuntu-latest
+    environment: Azure
     steps:
 
       # Checkout code
@@ -27,7 +28,7 @@ jobs:
       id: deploy
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
+        resourceGroupName: ${{ vars.AZURE_RG }}
         scope: resourcegroup
         template: ./Bicep/staticwebapp.v3.bicep
         failOnStdErr: false
@@ -41,12 +42,16 @@ jobs:
       run: ./Bicep/dns.ps1
       shell: pwsh
 
+  set-custom-domain:
+    runs-on: ubuntu-latest
+    environment: Cloudflare
+    steps:
     - name: Set Custom Domain
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
+        resourceGroupName: ${{ vars.AZURE_RG }}
         scope: resourcegroup
-        template: ./Bicep/staticwebapp.v4.bicep
+        template: ./Bicep/staticwebappdomain.bicep
         failOnStdErr: false
         deploymentName: bicep-dns-test-ci

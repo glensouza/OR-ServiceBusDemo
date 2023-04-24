@@ -1,5 +1,5 @@
 @description('Name of Static Web App')
-param staticWebAppName string = 'peopledemo97'
+param staticWebAppName string = 'gsorservicebusdemo'
 
 resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' existing = {
   name: staticWebAppName
