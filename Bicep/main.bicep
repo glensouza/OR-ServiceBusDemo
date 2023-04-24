@@ -146,7 +146,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'apiLocation'
-          value: webApp.properties.defaultHostName
+          value: 'https://${webApp.properties.defaultHostName}'
         }
       ]
     }
@@ -188,7 +188,7 @@ resource webReceiverApp 'Microsoft.Web/sites@2022-03-01' = {
       appSettings: [
         {
           name: 'apiLocation'
-          value: webApp.properties.defaultHostName
+          value: 'https://${webApp.properties.defaultHostName}'
         }
       ]
     }
