@@ -45,16 +45,24 @@ jobs:
       - name: 'Build Function Project'
         shell: bash
         run: |
-          pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          pushd '/ServiceBus/GSOR.Functions'
           dotnet build --configuration Release --output ./functionoutput
           popd
 
       - name: 'Build Web Project'
         shell: bash
         run: |
-          pushd '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+          pushd '/ServiceBus/GSOR.Web'
           dotnet build --configuration Release
           dotnet publish -c Release -o ./weboutput
+          popd
+
+      - name: 'Build Web Viewer Project'
+        shell: bash
+        run: |
+          pushd '/ServiceBus/GSOR.Web.Viewer'
+          dotnet build --configuration Release
+          dotnet publish -c Release -o ./webvieweroutput
           popd
 
       - name: 'Deploy Function App'
@@ -67,6 +75,13 @@ jobs:
       - name: 'Deploy Web App'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: '${{ vars.RESOURCE_NAME }}web'
+          app-name: '${{ vars.RESOURCE_NAME }}-web'
           slot-name: 'Production'
           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/weboutput'
+
+      - name: 'Deploy Web Viewer'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: '${{ vars.RESOURCE_NAME }}-webviewer'
+          slot-name: 'Production'
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/webvieweroutput'
