@@ -9,6 +9,10 @@ on:
       - ".github/workflows/web.yml"
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './ServiceBus/GSOR.Functions'
   AZURE_WEBAPP_PACKAGE_PATH: './ServiceBus/GSOR.Web'

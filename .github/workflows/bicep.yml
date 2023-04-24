@@ -9,6 +9,10 @@ on:
       - ".github/workflows/bicep.yml"
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   provision-service-bus:
     runs-on: ubuntu-latest
