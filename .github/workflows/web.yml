@@ -45,14 +45,14 @@ jobs:
       - name: 'Build Function Project'
         shell: bash
         run: |
-          pushd '/ServiceBus/GSOR.Functions'
+          pushd 'ServiceBus/GSOR.Functions'
           dotnet build --configuration Release --output ./functionoutput
           popd
 
       - name: 'Build Web Project'
         shell: bash
         run: |
-          pushd '/ServiceBus/GSOR.Web'
+          pushd 'ServiceBus/GSOR.Web'
           dotnet build --configuration Release
           dotnet publish -c Release -o ./weboutput
           popd
@@ -60,7 +60,7 @@ jobs:
       - name: 'Build Web Viewer Project'
         shell: bash
         run: |
-          pushd '/ServiceBus/GSOR.Web.Viewer'
+          pushd 'ServiceBus/GSOR.Web.Viewer'
           dotnet build --configuration Release
           dotnet publish -c Release -o ./webvieweroutput
           popd
