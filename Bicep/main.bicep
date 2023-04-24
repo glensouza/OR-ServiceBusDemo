@@ -154,7 +154,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
 }
 
 resource webApp 'Microsoft.Web/sites@2022-03-01' = {
-  name: '${webAppName}-web'
+  name: '${webAppName}web'
   location: location
   kind: 'app,linux'
   properties: {
@@ -177,7 +177,7 @@ resource webApp 'Microsoft.Web/sites@2022-03-01' = {
 }
 
 resource webReceiverApp 'Microsoft.Web/sites@2022-03-01' = {
-  name: '${webAppName}-webviewer'
+  name: '${webAppName}webviewer'
   location: location
   kind: 'app,linux'
   properties: {

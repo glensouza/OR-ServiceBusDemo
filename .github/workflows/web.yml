@@ -75,13 +75,13 @@ jobs:
       - name: 'Deploy Web App'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: '${{ vars.RESOURCE_NAME }}-web'
+          app-name: '${{ vars.RESOURCE_NAME }}web'
           slot-name: 'Production'
           package: 'ServiceBus/GSOR.Web/weboutput'
 
       - name: 'Deploy Web Viewer'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: '${{ vars.RESOURCE_NAME }}-webviewer'
+          app-name: '${{ vars.RESOURCE_NAME }}webviewer'
           slot-name: 'Production'
-          package: 'ServiceBus/GSOR.Web.Viewer/webvieweroutput'
+          package: 'ServiceBus/GSOR.Web.Viewer/webvieweroutput/wwwroot'
