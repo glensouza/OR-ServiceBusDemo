@@ -68,9 +68,8 @@ app.MapPost("/api/send/{message}", async (string message, IHubContext<MessageHub
     })
     .WithName("SendMessage");
 
-app.MapPost("api/queue/{message}", async (string message, IHubContext<MessageHub> context) =>
+app.MapPost("api/queue", async (IHubContext<MessageHub> context) =>
     {
-        // TODO: Service Bus Queue Message
         Random random = new();
         int randomNumber = random.Next(1, 1000);
 
