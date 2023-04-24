@@ -70,18 +70,18 @@ jobs:
         with:
           app-name: '${{ vars.RESOURCE_NAME }}func'
           slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/functionoutput'
+          package: 'ServiceBus/GSOR.Functions/functionoutput'
 
       - name: 'Deploy Web App'
         uses: azure/webapps-deploy@v2
         with:
           app-name: '${{ vars.RESOURCE_NAME }}-web'
           slot-name: 'Production'
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/weboutput'
+          package: 'ServiceBus/GSOR.Web/weboutput'
 
       - name: 'Deploy Web Viewer'
         uses: azure/webapps-deploy@v2
         with:
           app-name: '${{ vars.RESOURCE_NAME }}-webviewer'
           slot-name: 'Production'
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/webvieweroutput'
+          package: 'ServiceBus/GSOR.Web.Viewer/webvieweroutput'
