@@ -4,7 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # SECRET FILES:
-Bicep/MyCommands.txt
+Bicep/MyCommands.md
 
 # User-specific files
 *.rsuser
