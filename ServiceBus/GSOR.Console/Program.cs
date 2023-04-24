@@ -91,7 +91,7 @@ async Task SendThreeMessages()
         await sender.SendMessageAsync(message);
 
         // notify
-        await Notify($"Sent fromconsole {message.Body.ToString()}");
+        await Notify($"Sent {queueName} {message.Body.ToString()}");
         Console.WriteLine(message.Body.ToString());
     }
 
@@ -110,7 +110,7 @@ async Task ReceiveOneMessage()
     ServiceBusReceivedMessage receivedMessage = await receiver.ReceiveMessageAsync();
 
     // notify
-    await Notify($"Received fromconsole {receivedMessage?.Body}");
+    await Notify($"Received {queueName} {receivedMessage?.Body}");
     Console.WriteLine(receivedMessage?.Body?.ToString());
 
     // complete the message, so that it is not received again.
@@ -136,7 +136,7 @@ void WriteMenu(Option selectedOption)
 async Task Notify(string message)
 {
     UrlEncoder urlEncoder = UrlEncoder.Default;
-    string encodedMessage = $"http://localhost:5171/api/send/{urlEncoder.Encode(message)}";
+    string encodedMessage = $"{config.GetValue<string>("apiLocation")}/api/send/{urlEncoder.Encode(message)}";
     Uri uri = new(encodedMessage);
     HttpClient httpClient = new();
     await httpClient.PostAsync(uri, null);

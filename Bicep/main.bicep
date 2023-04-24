@@ -144,6 +144,10 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: 'dotnet'
         }
+        {
+          name: 'apiLocation'
+          value: webApp.properties.defaultHostName
+        }
       ]
     }
   }

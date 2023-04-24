@@ -20,7 +20,7 @@ namespace GSOR.Functions
         private async Task Notify(string message)
         {
             UrlEncoder urlEncoder = UrlEncoder.Default;
-            string encodedMessage = $"http://localhost:5171/api/send/{urlEncoder.Encode(string.Concat("Received ", message))}";
+            string encodedMessage = $"{Environment.GetEnvironmentVariable("apiLocation")}/api/send/{urlEncoder.Encode(string.Concat("Received ", message))}";
             Uri uri = new(encodedMessage);
             HttpClient httpClient = new();
             await httpClient.PostAsync(uri, null);
