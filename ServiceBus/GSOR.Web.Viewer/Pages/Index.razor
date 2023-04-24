@@ -1,0 +1,47 @@
+﻿@page "/"
+@inject HttpClient Http
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IConfiguration Configuration
+@implements IAsyncDisposable
+
+<div id="orWebMain">
+    <h1>OR Web Messages</h1>
+    <div id="theScript">
+        @foreach (string message in messages)
+        {
+            <p>@message</p>
+        }
+    </div>
+</div>
+
+@code {
+    private HubConnection? hubConnection;
+    private readonly List<string> messages = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        string apiLocation = Configuration["apiLocation"] ?? throw new InvalidOperationException();
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl($"{apiLocation}/api/messageHub")
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<string>("NewMessage", (message) =>
+        {
+            messages.Add(message);
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

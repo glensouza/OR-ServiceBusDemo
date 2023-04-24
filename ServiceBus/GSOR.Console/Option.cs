@@ -1,4 +1,6 @@
-﻿public class Option
+﻿namespace GSOR.Console;
+
+public class Option
 {
     public string Name { get; }
     public Action Selected { get; }

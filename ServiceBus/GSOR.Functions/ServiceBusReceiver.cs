@@ -1,4 +1,6 @@
 using System;
+using System.Net.Http;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
@@ -17,6 +19,11 @@ namespace GSOR.Functions
 
         private async Task Notify(string message)
         {
+            UrlEncoder urlEncoder = UrlEncoder.Default;
+            string encodedMessage = $"http://localhost:5171/api/send/{urlEncoder.Encode(string.Concat("Received ", message))}";
+            Uri uri = new(encodedMessage);
+            HttpClient httpClient = new();
+            await httpClient.PostAsync(uri, null);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Azure.Messaging.ServiceBus;
+﻿using System.Text.Encodings.Web;
+using Azure.Messaging.ServiceBus;
+using GSOR.Console;
 using Microsoft.Extensions.Configuration;
 
 // Build a config object, using env vars and JSON providers.
@@ -83,13 +85,13 @@ async Task SendThreeMessages()
     for (int i = 0; i < 3; i++)
     {
         // create a session message that we can send
-        ServiceBusMessage message = new($"From Console {randomNumber} {i}");
+        ServiceBusMessage message = new($"{randomNumber} {i}");
 
         // send the message
         await sender.SendMessageAsync(message);
 
         // notify
-        await Notify($"Sent {message.Body.ToString()}");
+        await Notify($"Sent fromconsole {message.Body.ToString()}");
         Console.WriteLine(message.Body.ToString());
     }
 
@@ -108,7 +110,7 @@ async Task ReceiveOneMessage()
     ServiceBusReceivedMessage receivedMessage = await receiver.ReceiveMessageAsync();
 
     // notify
-    await Notify($"Received {receivedMessage?.Body}");
+    await Notify($"Received fromconsole {receivedMessage?.Body}");
     Console.WriteLine(receivedMessage?.Body?.ToString());
 
     // complete the message, so that it is not received again.
@@ -133,4 +135,9 @@ void WriteMenu(Option selectedOption)
 
 async Task Notify(string message)
 {
+    UrlEncoder urlEncoder = UrlEncoder.Default;
+    string encodedMessage = $"http://localhost:5171/api/send/{urlEncoder.Encode(message)}";
+    Uri uri = new(encodedMessage);
+    HttpClient httpClient = new();
+    await httpClient.PostAsync(uri, null);
 }

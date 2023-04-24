@@ -150,7 +150,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
 }
 
 resource webApp 'Microsoft.Web/sites@2022-03-01' = {
-  name: webAppName
+  name: '${webAppName}-web'
   location: location
   kind: 'app,linux'
   properties: {
@@ -160,12 +160,31 @@ resource webApp 'Microsoft.Web/sites@2022-03-01' = {
       ftpsState: 'FtpsOnly'
       appSettings: [
         {
-          name: 'AzureWebJobsStorage'
-          value: storageAccountConnectionString
-        }
-        {
           name: 'ServiceBusConnection'
           value: serviceBusConnectionString
+        }
+      ]
+    }
+    httpsOnly: true
+  }
+  identity: {
+    type: 'SystemAssigned'
+  }
+}
+
+resource webReceiverApp 'Microsoft.Web/sites@2022-03-01' = {
+  name: '${webAppName}-webreceiver'
+  location: location
+  kind: 'app,linux'
+  properties: {
+    serverFarmId: appServicePlan.id
+    siteConfig: {
+      linuxFxVersion: webLinuxFxVersion
+      ftpsState: 'FtpsOnly'
+      appSettings: [
+        {
+          name: 'apiLocation'
+          value: webApp.properties.defaultHostName
         }
       ]
     }
