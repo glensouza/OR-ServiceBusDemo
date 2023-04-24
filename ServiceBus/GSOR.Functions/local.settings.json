@@ -3,7 +3,7 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "ServiceBusConnection": "Set in user-secrets",
+    "ServiceBusConnectionString": "Set in user-secrets",
     "apiLocation": "http://localhost:5171"
   }
 }

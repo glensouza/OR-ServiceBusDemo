@@ -133,7 +133,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
           value: storageAccountConnectionString
         }
         {
-          name: 'ServiceBusConnection'
+          name: 'ServiceBusConnectionString'
           value: serviceBusConnectionString
         }
         {
@@ -164,7 +164,7 @@ resource webApp 'Microsoft.Web/sites@2022-03-01' = {
       ftpsState: 'FtpsOnly'
       appSettings: [
         {
-          name: 'ServiceBusConnection'
+          name: 'ServiceBusConnectionString'
           value: serviceBusConnectionString
         }
       ]
