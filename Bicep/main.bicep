@@ -1,12 +1,12 @@
 targetScope = 'subscription'
 
 @description('Location for all resources.')
-param location string = 'centralus'
-param resourceName string = 'gsorservicebusdemo'
+param location string
+param resourceName string
 
 resource ResourceGroup 'Microsoft.Resources/resourceGroups@2019-05-01' = {
   name: resourceName
-  location: location
+  location: location  
 }
 
 // module Resources './provisionResources.bicep' = {
