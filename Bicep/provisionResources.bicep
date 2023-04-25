@@ -4,7 +4,8 @@ targetScope = 'resourceGroup'
 param location string = resourceGroup().location
 
 @description('Base Name of Resources')
-param resourceName string = 'gsorservicebusdemo'
+param commonResourceName string = 'gsorservicebusdemo'
+var resourceName = toLower(commonResourceName)
 
 // var logAnalyticsName = '${resourceName}log'
 // var logAnalyticsSKU = 'PerGB2018'
