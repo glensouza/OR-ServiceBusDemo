@@ -1,7 +1,7 @@
 targetScope = 'subscription'
 
 @description('Location for all resources.')
-param location string
+param location string = 'centralus'
 param resourceName string
 
 resource ResourceGroup 'Microsoft.Resources/resourceGroups@2019-05-01' = {
