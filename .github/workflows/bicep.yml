@@ -36,13 +36,23 @@ jobs:
     #       az group delete --name ${{ vars.RESOURCE_NAME }}
     #       az keyvault purge --name tolower(${{ vars.RESOURCE_NAME }}keyvault)
 
+    # - name: Provision Resources
+    #   uses: azure/arm-deploy@v1
+    #   if: always()
+    #   with:
+    #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    #     scope: subscription
+    #     template: ./Bicep/main.bicep
+    #     parameters: location=eastus resourceName=${{ vars.RESOURCE_NAME }}
+    #     failOnStdErr: false
+    #     deploymentName: bicep-ci-${{ github.run_id }}
+
     - name: Provision Resources
       uses: azure/arm-deploy@v1
-      if: always()
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         scope: subscription
         template: ./Bicep/main.bicep
-        parameters: location=eastus resourceName=${{ vars.RESOURCE_NAME }}
+        parameters: resourceName=${{ vars.RESOURCE_NAME }}
         failOnStdErr: false
-        deploymentName: bicep-ci-${{ github.run_id }}
+        deploymentName: bicep-ci
