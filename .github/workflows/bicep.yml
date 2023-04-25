@@ -29,21 +29,12 @@ jobs:
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     - name: Empty Out Environment
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        resourceGroupName: ${{ vars.AZURE_RG }}
-        scope: resourcegroup
-        template: ./Bicep/empty.bicep
-        failOnStdErr: false
-        deploymentName: empty-bicep-ci-${{ github.run_id }}
-        deploymentMode: Complete
-
-    - name: Clear Key Vault Name
       uses: azure/CLI@v1
       with:
         azcliversion: 2.30.0
-        inlineScript: az keyvault purge --name tolower(${{ vars.RESOURCE_NAME }}keyvault)
+        inlineScript: |
+          az group delete --name ${{ vars.RESOURCE_NAME }}
+          az keyvault purge --name tolower(${{ vars.RESOURCE_NAME }}keyvault)
 
     - name: Provision Resources
       uses: azure/arm-deploy@v1
