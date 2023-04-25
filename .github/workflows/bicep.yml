@@ -43,6 +43,6 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         scope: subscription
         template: ./Bicep/main.bicep
-        parameters: location=eastus resourceName=${{ vars.RESOURCE_NAME }}
+        parameters: location=centralus resourceName=${{ vars.RESOURCE_NAME }}
         failOnStdErr: false
         deploymentName: bicep-ci-${{ github.run_id }}
