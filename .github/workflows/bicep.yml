@@ -36,7 +36,7 @@ jobs:
         scope: resourcegroup
         template: ./Bicep/empty.bicep
         failOnStdErr: false
-        deploymentName: empty-bicep-ci-${GITHUB_RUN_NUMBER}
+        deploymentName: empty-bicep-ci-${{ github.run_id }}
         deploymentMode: Complete
 
     - name: Clear Key Vault Name
@@ -54,5 +54,5 @@ jobs:
         template: ./Bicep/main.bicep
         parameters: resourceName=${{ vars.RESOURCE_NAME }}
         failOnStdErr: false
-        deploymentName: bicep-ci-${GITHUB_RUN_NUMBER}
+        deploymentName: bicep-ci-${{ github.run_id }}
         deploymentMode: Complete
