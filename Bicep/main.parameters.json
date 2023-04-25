@@ -1,0 +1,102 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources."
+      }
+    },
+    "serviceBusNamespaceName": {
+      "type": "string",
+      "defaultValue": "gsorservicebusdemo",
+      "metadata": {
+        "description": "Name of the Service Bus namespace."
+      }
+    },
+    "serviceBusSkuName": {
+      "type": "string",
+      "defaultValue": "Basic",
+      "metadata": {
+        "description": "Name of SKU for Service Bus."
+      }
+    },
+    "serviceBusQueueNames": {
+      "type": "array",
+      "defaultValue": [
+        "fromfunction",
+        "fromconsole"
+      ],
+      "metadata": {
+        "description": "Name of Queues."
+      }
+    },
+    "storageAccountName": {
+      "type": "string",
+      "defaultValue": "gsorservicebusdemo",
+      "metadata": {
+        "description": "Name of the Storage Account"
+      },
+      "minLength": 3
+    },
+    "storageSKU": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Standard_ZRS",
+        "Premium_LRS",
+        "Premium_ZRS",
+        "Standard_GZRS",
+        "Standard_RAGZRS"
+      ]
+    },
+    "appServicePlanName": {
+      "type": "string",
+      "defaultValue": "gsorservicebusdemo",
+      "metadata": {
+        "description": "The name of App Service Plan"
+      }
+    },
+    "sku": {
+      "type": "string",
+      "defaultValue": "B1",
+      "metadata": {
+        "description": "The SKU of App Service Plan"
+      }
+    },
+    "functionAppName": {
+      "type": "string",
+      "defaultValue": "gsorservicebusfunctions",
+      "metadata": {
+        "description": "The name of function app"
+      }
+    },
+    "functionLinuxFxVersion": {
+      "type": "string",
+      "defaultValue": "DOTNET|6.0",
+      "metadata": {
+        "description": "Required runtime stack of function app in the format of 'runtime|runtimeVersion'"
+      }
+    },
+    "webAppName": {
+      "type": "string",
+      "defaultValue": "gsorservicebusdemo",
+      "metadata": {
+        "description": "The name of web app"
+      },
+      "minLength": 2
+    },
+    "webLinuxFxVersion": {
+      "type": "string",
+      "defaultValue": "DOTNETCORE|7.0",
+      "metadata": {
+        "description": "Required runtime stack of web app in the format of 'runtime|runtimeVersion'"
+      }
+    }
+  }
+}
