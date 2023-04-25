@@ -36,8 +36,14 @@ jobs:
         scope: resourcegroup
         template: ./Bicep/empty.bicep
         failOnStdErr: false
-        deploymentName: empty-bicep-ci
+        deploymentName: empty-bicep-ci-${GITHUB_RUN_NUMBER}
         deploymentMode: Complete
+
+    - name: Clear Key Vault Name
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.30.0
+        inlineScript: az keyvault purge --name tolower(${{ vars.RESOURCE_NAME }}keyvault)
 
     - name: Provision Resources
       uses: azure/arm-deploy@v1
@@ -46,7 +52,7 @@ jobs:
         resourceGroupName: ${{ vars.AZURE_RG }}
         scope: resourcegroup
         template: ./Bicep/main.bicep
-        parameters: ./Biecp/main.parameters.json serviceBusNamespaceName=${{ vars.RESOURCE_NAME }}sb storageAccountName=${{ vars.RESOURCE_NAME }}sa appServicePlanName=${{ vars.RESOURCE_NAME }}asp functionAppName=${{ vars.RESOURCE_NAME }}func webAppName=${{ vars.RESOURCE_NAME }}
+        parameters: resourceName=${{ vars.RESOURCE_NAME }}
         failOnStdErr: false
-        deploymentName: bicep-ci
+        deploymentName: bicep-ci-${GITHUB_RUN_NUMBER}
         deploymentMode: Complete
