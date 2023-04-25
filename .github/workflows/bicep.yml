@@ -54,8 +54,8 @@ on:
     branches:
       - "main" 
     paths:
-      - "bicep/**"
-      - ".github/workflows/iac.yml"
+      - "Bicep/**"
+      - ".github/workflows/bicep.yml"
   workflow_dispatch:
 
 permissions:
